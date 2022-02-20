@@ -1,0 +1,254 @@
+<?xml version="1.0"?><!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd">
+<pdf>
+<head>
+	<link name="NotoSans" type="font" subtype="truetype" src="${nsfont.NotoSans_Regular}" src-bold="${nsfont.NotoSans_Bold}" src-italic="${nsfont.NotoSans_Italic}" src-bolditalic="${nsfont.NotoSans_BoldItalic}" bytes="2" />
+	<#if .locale == "zh_CN">
+		<link name="NotoSansCJKsc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKsc_Regular}" src-bold="${nsfont.NotoSansCJKsc_Bold}" bytes="2" />
+	<#elseif .locale == "zh_TW">
+		<link name="NotoSansCJKtc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKtc_Regular}" src-bold="${nsfont.NotoSansCJKtc_Bold}" bytes="2" />
+	<#elseif .locale == "ja_JP">
+		<link name="NotoSansCJKjp" type="font" subtype="opentype" src="${nsfont.NotoSansCJKjp_Regular}" src-bold="${nsfont.NotoSansCJKjp_Bold}" bytes="2" />
+	<#elseif .locale == "ko_KR">
+		<link name="NotoSansCJKkr" type="font" subtype="opentype" src="${nsfont.NotoSansCJKkr_Regular}" src-bold="${nsfont.NotoSansCJKkr_Bold}" bytes="2" />
+	<#elseif .locale == "th_TH">
+		<link name="NotoSansThai" type="font" subtype="opentype" src="${nsfont.NotoSansThai_Regular}" src-bold="${nsfont.NotoSansThai_Bold}" bytes="2" />
+	</#if>
+    <macrolist>
+        <macro id="nlheader">
+            <table class="atas"><tr>
+	<td rowspan="2" style="width: 317px; height: 50px;" width="35%"><#if companyInformation.logoUrl?length != 0><img height="100%" src="${companyInformation.logoUrl}" width="100%" /> </#if></td>
+	<td align="center" class="judul border" stye="border: 5px solid red;" vertical-align="middle" width="30%">TAX INVOICE</td>
+	<td width="15%">&nbsp;</td>
+	<td align="center" class="borderkiri borderatas borderkanan" width="11%">
+	<p style="text-align: center;"><b>Date</b><br />${record.trandate}</p>
+	</td>
+	<td align="center" class="borderatas borderkanan" width="9%">
+	<p style="text-align: center;"><b>Page</b><br />&nbsp;<pagenumber/> of <totalpages/></p>
+	</td>
+	</tr>
+	<tr>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td align="center" class="border" colspan="2">
+	<p style="text-align: center;"><b>Invoice Number</b><br /><span class="docnumber">${record.tranid}</span></p>
+	</td>
+	</tr></table>
+
+<table class="atas"><tr height="60px">
+	<td class="border" width="45%">${subsidiary.mainaddress_text}</td>
+	<td width="10%">&nbsp;</td>
+	<td width="45%">&nbsp;</td>
+	</tr>
+	<tr>
+	<td><br />Sold To:</td>
+	<td>&nbsp;</td>
+	<td><br />Ship To:</td>
+	</tr>
+	<tr height="60px">
+	<td class="border">${record.billaddress}</td>
+	<td>&nbsp;</td>
+	<td class="border">${record.shipaddress}</td>
+	</tr></table>
+
+<table class="subatas" style="margin-top:15px"><tr><#assign sonumber = record.createdfrom/>
+	<td align="center" class="border">
+	<p style="text-align: center;"><b>Order No.</b><br />${record.custbody_aca_mir_so_number}</p>
+	</td>
+	<td align="center" class="borderatas borderbawah">
+	<p style="text-align: center;"><b>Order Date</b><br />${record.trandate}</p>
+	</td>
+	<td align="center" class="border">
+	<p style="text-align: center;"><b>Department</b><br />${record.department}</p>
+  	</td>
+  	<td align="center" class="borderatas borderbawah">
+	<p style="text-align: center;"><b>Sales Rep</b><br />${record.salesrep}</p>
+	</td>
+	<td align="center" class="border">
+	<p style="text-align: center;"><b>PO Number</b><br />${record.otherrefnum}</p>
+	</td>
+	<td align="center" class="borderatas borderbawah borderkanan">
+	<p style="text-align: center;"><b>Terms</b><br />${record.terms}</p>
+	</td>
+	</tr></table>
+        </macro>
+        <macro id="nlfooter">
+            <table class="bawah" style="margin-bottom:7px"><#assign nolkan = record.total-record.total /><tr>
+	<td width="55%"><b>Comments:</b></td>
+	<td class="borderkiri borderkanan" width="25%"><b>Subtotal</b></td>
+	<td align="right" width="20%">${record.subtotal}</td>
+	</tr>
+	<tr>
+	<td><#if record.cseg1 !="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END USER: ${record.cseg1} <#else> &nbsp; </#if></td>
+	<td class="borderkiri borderkanan" style="padding-bottom: 5px; padding-top: 5px; "><b>Tax Total</b></td>
+	<td align="right" class="borderbawah" style="padding-bottom: 5px; padding-top: 5px; ">${record.taxtotal}</td>
+	</tr>
+	<tr>
+	<td>&nbsp;</td>
+	<td class="borderkiri borderkanan" style="padding-bottom: 5px; padding-top: 5px; "><b>Total Amount</b></td>
+	<td align="right" style="padding-bottom: 5px; padding-top: 5px; ">${record.total}</td>
+	</tr>
+	<tr>
+	<td>&nbsp;</td>
+	<td class="borderkiri borderkanan" style="padding-bottom: 5px; padding-top: 5px; ">Less Payment</td>
+	<td align="right" style="padding-bottom: 5px; padding-top: 5px; ">${nolkan}</td>
+	</tr>
+	<tr>
+	<td>&nbsp;</td>
+	<td class="borderkiri borderkanan" style="padding-bottom: 5px; padding-top: 5px; ">Less Pmt. Disc</td>
+	<td align="right" class="borderbawah" style="padding-bottom: 5px; padding-top: 5px; ">${nolkan}</td>
+	</tr>
+	<tr>
+	<td>${record.custbody_aca_so_reference}</td>
+	<td class="borderkiri borderkanan" style="padding-bottom: 5px; padding-top: 5px; "><b>Amount due ${record.currency}</b></td>
+	<td align="right" style="padding-bottom: 5px; padding-top: 5px; ">${record.total}</td>
+	</tr></table>
+
+<table class="atas">
+	<tr>
+		<td width="50%"><b>Banking Instructions:</b></td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr height="80px">
+		<td width="20%">${record.custbody_aca_bank_details}</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td width="30%">&nbsp;</td>
+		<td align="center" class="borderatas">PT. ACA Pacific</td>
+	</tr>
+	</table>
+        </macro>
+    </macrolist>
+    <style type="text/css">* {
+		<#if .locale == "zh_CN">
+			font-family: NotoSans, NotoSansCJKsc, sans-serif;
+		<#elseif .locale == "zh_TW">
+			font-family: NotoSans, NotoSansCJKtc, sans-serif;
+		<#elseif .locale == "ja_JP">
+			font-family: NotoSans, NotoSansCJKjp, sans-serif;
+		<#elseif .locale == "ko_KR">
+			font-family: NotoSans, NotoSansCJKkr, sans-serif;
+		<#elseif .locale == "th_TH">
+			font-family: NotoSans, NotoSansThai, sans-serif;
+		<#else>
+			font-family: NotoSans, sans-serif;
+		</#if>
+		}
+		
+		<!--
+		table tr td {
+			border: 1px solid #000000;
+		}
+		-->
+		
+		table.atas{
+            font-size: 9px;
+         	width:100%;
+			border-collapse: collapse;
+        }
+		
+		table.subatas{
+            font-size: 9px;
+         	width:100%;
+			border-collapse: collapse;
+        }
+		
+		td.judul {
+			font-size: 13px;
+            font-weight: bold;
+            color: #333333;
+        }
+		
+		span.docnumber {
+			font-size: 10px;
+            font-weight: bold;
+            color: #333333;
+        }
+		
+		table.bawah{
+            font-size: 9px;
+         	width:100%;
+			border: 1px solid #000000;
+			border-collapse: collapse;
+        }
+		
+		td.border{
+			border-collapse: collapse;
+			border: 1px solid #000000;
+		}
+		
+		td.borderless{
+			border-collapse: collapse;
+			border: 0px;
+		}
+		
+		td.borderatas{
+			border-collapse: collapse;
+			border-top: 1px solid #000000;
+		}
+		
+		td.borderbawah{
+			border-collapse: collapse;
+			border-bottom: 1px solid #000000;
+		}
+		
+		td.borderkiri{
+			border-collapse: collapse;
+			border-left: 1px solid #000000;
+		}
+		
+		td.borderkanan{
+			border-collapse: collapse;
+			border-right: 1px solid #000000;
+		}
+		
+		th.borderbawah{
+			border-collapse: collapse;
+			border-bottom: 1px solid #000000;
+		}
+		
+		th.borderkanan{
+			border-right: 1px solid #000000;
+		}
+		
+		th{
+            padding-bottom: 10px;
+            padding-top: 10px;
+            font-size: 9px;
+			font-weight: bold;
+          	align: center;
+        }
+		
+		table.itemtable td{
+			padding-bottom: 5px;
+            padding-top: 5px;
+            font-size: 9px;
+          	align: center;
+		}
+</style>
+</head>
+<body header="nlheader" header-height="28%" footer="nlfooter" footer-height="21%" padding="0.5in 0.5in 0.5in 0.5in" size="Letter">
+    <#if record.item?has_content>
+<table border="1px" class="itemtable" style="width: 100%; margin-top: 10px;"><!-- start items --><#list record.item as item><#if item_index==0>
+<thead>
+	<tr>
+	<th align="center" class="borderkanan borderbawah" width="5%">Qty</th>
+	<th align="center" class="borderkanan borderbawah" width="20%">Item Number</th>
+	<th align="center" class="borderkanan borderbawah" width="30%">Description</th>
+	<th align="center" class="borderkanan borderbawah" width="18%">Unit Price</th>
+	<th align="center" class="borderkanan borderbawah" width="7%">UOM</th>
+	<th align="center" class="borderbawah" width="20%">Extended Price (${record.currency})</th>
+	</tr>
+</thead>
+</#if><tr><#if item.class!="COGS">
+	<td align="right" class="borderkanan">${item.quantity}</td>
+	<td align="left" class="borderkanan">${item.item}</td>
+	<td align="left" class="borderkanan">${item.description}</td>
+	<td align="right" class="borderkanan">${item.rate}</td>
+	<td align="center" class="borderkanan">${item.units}</td>
+	<td align="right">${item.amount}</td>
+	</#if></tr>
+	</#list><!-- end items --></table>
+</#if>
+</body>
+</pdf>

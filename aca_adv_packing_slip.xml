@@ -1,0 +1,287 @@
+<?xml version="1.0"?><!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd">
+<pdf>
+<head>
+	<link name="NotoSans" type="font" subtype="truetype" src="${nsfont.NotoSans_Regular}" src-bold="${nsfont.NotoSans_Bold}" src-italic="${nsfont.NotoSans_Italic}" src-bolditalic="${nsfont.NotoSans_BoldItalic}" bytes="2" />
+	<#if .locale == "zh_CN">
+		<link name="NotoSansCJKsc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKsc_Regular}" src-bold="${nsfont.NotoSansCJKsc_Bold}" bytes="2" />
+	<#elseif .locale == "zh_TW">
+		<link name="NotoSansCJKtc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKtc_Regular}" src-bold="${nsfont.NotoSansCJKtc_Bold}" bytes="2" />
+	<#elseif .locale == "ja_JP">
+		<link name="NotoSansCJKjp" type="font" subtype="opentype" src="${nsfont.NotoSansCJKjp_Regular}" src-bold="${nsfont.NotoSansCJKjp_Bold}" bytes="2" />
+	<#elseif .locale == "ko_KR">
+		<link name="NotoSansCJKkr" type="font" subtype="opentype" src="${nsfont.NotoSansCJKkr_Regular}" src-bold="${nsfont.NotoSansCJKkr_Bold}" bytes="2" />
+	<#elseif .locale == "th_TH">
+		<link name="NotoSansThai" type="font" subtype="opentype" src="${nsfont.NotoSansThai_Regular}" src-bold="${nsfont.NotoSansThai_Bold}" bytes="2" />
+	</#if>
+    <macrolist>
+        <macro id="nlheader">
+		
+			<table class="atas">
+				<tr>
+					<td rowspan="2" style="width: 317px; height: 50px;" width="35%">
+						<#if companyInformation.logoUrl?length != 0><img height="100%" src="${companyInformation.logoUrl}" width="100%" /> </#if>
+					</td>
+					<td class="judul border" align="center" vertical-align="middle" width="30%" stye ="border: 5px solid red;">
+						DELIVERY ORDER
+					</td>
+					<td width="15%">&nbsp;</td>
+					<td class="borderkiri borderatas borderkanan" align="center" width="11%">
+						<p style="text-align: center;">
+							<b>Date</b>
+							<br/>${record.trandate}
+						</p>
+					</td>
+					<td class="borderatas borderkanan" align="center" width="9%">
+						<p style="text-align: center;">	
+							<b>Page</b>
+							<br/>
+							&nbsp;<pagenumber/> of <totalpages/>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td class="border" colspan = "2" align="center">
+						<p style="text-align: center;">
+							<b>Shipment Number</b>
+							<br/>
+							<span class="docnumber">${record.tranid}</span>
+						</p>
+					</td>
+				</tr>
+			</table>
+			
+			<table class="atas">
+				<tr height="60px">
+					<td class = "border" width ="45%">
+						${record.custbody_aca_sub_main_address}
+					</td>
+					<td width ="10%"></td>
+					<td width ="45%"></td>
+				</tr>
+				<tr>
+					<td><br/>Sold To:</td>
+					<td></td>
+					<td><br/>Ship To:</td>
+				</tr>
+				<tr height="60px">
+					<td class = "border">${salesorder.billaddress}</td>
+					<td></td>
+					<td class = "border">${record.shipaddress}</td>
+				</tr>
+			</table>
+			
+			<table class="subatas" style="margin-top:15px">
+				<tr>
+					<td class="border" align="center">
+						<p style="text-align: center;">
+							<b>Department</b>
+							<br/>${salesorder.department}
+						</p>
+					</td>
+					<td class="borderatas borderbawah" align="center">
+						<p style="text-align: center;">
+							<b>PO Number</b>
+							<br/>${salesorder.otherrefnum}
+						</p>
+					</td>
+					<td class="border" align="center">
+						<p style="text-align: center;">
+							<b>Sales Person</b>
+							<br/>${salesorder.salesrep}
+						</p>
+					</td>
+					<td class="borderatas borderbawah borderkanan" align="center">
+						<p style="text-align: center;">
+							<b>Delivery Date</b>
+							<br/>${salesorder.shipdate}
+						</p>
+					</td>
+				</tr>
+			</table>
+        </macro>
+		
+		<macro id="nlfooter">
+			<table class="bawah" style="margin-bottom:20px">
+					<tr>
+						<td width="40%">
+							<b>Comments:</b>
+						</td>
+						<td class="borderkiri borderkanan" width="30%">
+							Received by:
+						</td>
+						<td width="30%" align="right">
+							&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<#if record.cseg1 !="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>END USER: ${record.cseg1}</p>
+							<#else>
+								&nbsp;
+							</#if>
+						</td>
+						<td style="padding-bottom: 5px; padding-top: 5px; " class="borderkiri borderkanan" >
+							&nbsp;
+						</td>
+						<td style="padding-bottom: 5px; padding-top: 5px; " align="right">
+							&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td>
+							&nbsp;
+						</td>
+						<td style="padding-bottom: 5px; padding-top: 5px; " class="borderkiri borderkanan borderbawah" >
+							&nbsp;
+						</td>
+						<td style="padding-bottom: 5px; padding-top: 5px; " class="borderbawah" align="right">
+							&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td>
+							${salesorder.custbody_aca_mir_so_number}<#if record.custbody_aca_so_reference !=""> | ${record.custbody_aca_so_reference}</#if>
+						</td>
+						<td align="center" style="padding-bottom: 5px; padding-top: 5px; " class="borderkiri borderkanan">
+							<b>Signature and Company's Chop and Date</b>
+						</td>
+						<td align="center" style="padding-bottom: 5px; padding-top: 5px; ">
+							PT. ACA Pacific
+						</td>
+					</tr>
+				</table>
+        </macro>
+    </macrolist>
+    <style type="text/css">* {
+		<#if .locale == "zh_CN">
+			font-family: NotoSans, NotoSansCJKsc, sans-serif;
+		<#elseif .locale == "zh_TW">
+			font-family: NotoSans, NotoSansCJKtc, sans-serif;
+		<#elseif .locale == "ja_JP">
+			font-family: NotoSans, NotoSansCJKjp, sans-serif;
+		<#elseif .locale == "ko_KR">
+			font-family: NotoSans, NotoSansCJKkr, sans-serif;
+		<#elseif .locale == "th_TH">
+			font-family: NotoSans, NotoSansThai, sans-serif;
+		<#else>
+			font-family: NotoSans, sans-serif;
+		</#if>
+		}
+		table.atas{
+            font-size: 9px;
+         	width:100%;
+			border-collapse: collapse;
+        }
+		
+		table.subatas{
+            font-size: 9px;
+         	width:100%;
+			border-collapse: collapse;
+        }
+		
+		td.judul {
+			font-size: 13px;
+            font-weight: bold;
+            color: #333333;
+        }
+		
+		span.docnumber {
+			font-size: 10px;
+            font-weight: bold;
+            color: #333333;
+        }
+		
+		table.bawah{
+            font-size: 9px;
+         	width:100%;
+			border: 1px solid #000000;
+			border-collapse: collapse;
+        }
+		
+		td.border{
+			border-collapse: collapse;
+			border: 1px solid #000000;
+		}
+		
+		td.borderless{
+			border-collapse: collapse;
+			border: 0px;
+		}
+		
+		td.borderatas{
+			border-collapse: collapse;
+			border-top: 1px solid #000000;
+		}
+		
+		td.borderbawah{
+			border-collapse: collapse;
+			border-bottom: 1px solid #000000;
+		}
+		
+		td.borderkiri{
+			border-collapse: collapse;
+			border-left: 1px solid #000000;
+		}
+		
+		td.borderkanan{
+			border-collapse: collapse;
+			border-right: 1px solid #000000;
+		}
+		
+		th.borderbawah{
+			border-collapse: collapse;
+			border-bottom: 1px solid #000000;
+		}
+		
+		th.borderkanan{
+			border-right: 1px solid #000000;
+		}
+		
+		th{
+            padding-bottom: 10px;
+            padding-top: 10px;
+            font-size: 9px;
+			font-weight: bold;
+          	align: center;
+        }
+		
+		table.itemtable td{
+			padding-bottom: 5px;
+            padding-top: 5px;
+            font-size: 9px;
+          	align: center;
+		}
+		
+</style>
+</head>
+<body header="nlheader" header-height="26%" footer="nlfooter" footer-height="15%" padding="0.5in 0.5in 0.5in 0.5in" size="Letter">
+
+<#if salesorder.item?has_content>
+
+<table class="itemtable" border="1px" style="width: 100%; margin-top: 10px;"><!-- start items --><#list salesorder.item as item><#if item_index==0>
+<thead>
+	<tr>
+	<th class="borderkanan borderbawah" width="5%" align="center">No</th>
+	<th class="borderkanan borderbawah" width="20%" align="center">Item Number</th>
+	<th class="borderkanan borderbawah" width="41%" align="center">Description</th>
+	<th class="borderkanan borderbawah" width="12%" align="center">Qty. Ordered</th>
+	<th class="borderkanan borderbawah" width="10%" align="center">UOM</th>
+	<th class="borderbawah" width="12%" align="center">Qty. Shipped</th>
+	</tr>
+</thead>
+</#if><tr><#assign nourut = item_index + 1 />
+	<#if item.class!="COGS">
+	<td class="borderkanan" align="right">${nourut}</td>
+	<td class="borderkanan" align="left">${item.item}</td>
+	<td class="borderkanan" align="left">${item.description}</td>
+	<td class="borderkanan" align="right">${item.quantityordered}</td>
+	<td class="borderkanan" align="center">${item.units}</td>
+	<td align="right">${item.quantity}</td>
+	</#if>
+	</tr>
+	</#list><!-- end items --></table>
+</#if>
+</body>
+</pdf>
